@@ -36,7 +36,12 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'ROCKET_BOOKS_VERSION', '1.0.0' );
+define( 'ROCKET_BOOKS_NAME', 'rocket-books' );
+// Plugin Directly path
+define( 'ROCKET_BOOKS_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
+//Plugin Directly url
+define( 'ROCKET_BOOKS_URL_PATH', plugin_dir_url( __FILE__ ) );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-rocket-books-activator.php
@@ -79,4 +84,6 @@ function run_rocket_books() {
 	$plugin->run();
 
 }
+
 run_rocket_books();
+

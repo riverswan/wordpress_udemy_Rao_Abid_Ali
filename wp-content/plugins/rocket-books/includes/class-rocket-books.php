@@ -35,7 +35,7 @@ class Rocket_Books {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Rocket_Books_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Rocket_Books_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,7 +44,7 @@ class Rocket_Books {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string $plugin_name The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -53,7 +53,7 @@ class Rocket_Books {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -72,7 +72,14 @@ class Rocket_Books {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'rocket-books';
+
+
+		if ( defined( 'ROCKET_BOOKS_NAME' ) ) {
+			$this->plugin_name = ROCKET_BOOKS_NAME;
+		} else {
+			$this->plugin_name = 'rocket-books';
+		}
+
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -156,7 +163,6 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -172,7 +178,8 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+//		$this->loader->add_action( 'init', $plugin_public, 'register_book_post_type' );
+//		$this->loader->add_action( 'init', $plugin_public, 'register_taxonomy_genre' );
 	}
 
 	/**
@@ -188,8 +195,8 @@ class Rocket_Books {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
@@ -198,8 +205,8 @@ class Rocket_Books {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    Rocket_Books_Loader    Orchestrates the hooks of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -208,8 +215,8 @@ class Rocket_Books {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_version() {
 		return $this->version;
