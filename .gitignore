@@ -461,8 +461,4 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
-.idea/PHP_patterns_Zandstra.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/php.xml
+.idea
