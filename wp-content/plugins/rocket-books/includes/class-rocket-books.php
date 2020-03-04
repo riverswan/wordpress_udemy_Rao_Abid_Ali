@@ -227,6 +227,8 @@ class Rocket_Books {
 		$plugin_post_type = new Rocket_Books_Post_Types( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_post_type, 'init' );
 		$this->loader->add_filter( 'the_content', $plugin_post_type, 'content_single_book' );
+		$this->loader->add_filter('single_template',$plugin_post_type,'single_template_book');
+		$this->loader->add_filter('archive_template',$plugin_post_type,'archive_template_book');
 	}
 
 }
