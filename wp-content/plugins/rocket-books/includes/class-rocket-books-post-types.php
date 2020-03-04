@@ -196,17 +196,21 @@ class Rocket_Books_Post_Types {
 
 	public function register_metabox_book( $post ) {
 		$is_gutenberg_active = use_block_editor_for_post_type( get_post_type() );
+		$context             = $is_gutenberg_active ? 'side' : 'normal';
 		add_meta_box(
 			'book-details',
 			__( 'Book details', 'rocket-books' ),
 			array( $this, 'book_metabox_display_cb' ),
 			'book',
-			'side',
-			'default'
+			$context,
+			'high'
 		);
 	}
 
 	public function book_metabox_display_cb( $post ) {
-		echo "here we display info \n";
+		?>
+        <label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
+        <input type="text" name="rbr_book_pages">
+		<?php
 	}
 }
