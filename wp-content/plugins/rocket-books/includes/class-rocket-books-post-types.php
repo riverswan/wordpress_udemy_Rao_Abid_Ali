@@ -58,6 +58,12 @@ class Rocket_Books_Post_Types {
 
 	}
 
+	public function get_template_loader() {
+		require_once ROCKET_BOOKS_BASE_DIR . 'public/class-rocket-book-template-loader.php';
+
+		return new Rocket_Books_Template_Loader();
+	}
+
 	public function init() {
 		$this->register_book_post_type();
 		$this->register_taxonomy_genre();
@@ -188,12 +194,6 @@ class Rocket_Books_Post_Types {
 		return $template;
 	}
 
-	public function get_template_loader() {
-		require_once ROCKET_BOOKS_BASE_DIR . 'public/class-rocket-book-template-loader.php';
-
-		return new Rocket_Books_Template_Loader();
-	}
-
 	public function register_metabox_book( $post ) {
 		$is_gutenberg_active = use_block_editor_for_post_type( get_post_type() );
 		$context             = $is_gutenberg_active ? 'side' : 'normal';
@@ -208,9 +208,29 @@ class Rocket_Books_Post_Types {
 	}
 
 	public function book_metabox_display_cb( $post ) {
+		wp_nonce_field( 'rbr_meta_box_nonce_action', 'rbr_meta_box_nonce' )
 		?>
-        <label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
-        <input type="text" name="rbr_book_pages">
+		<label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
+		<input type="text" name="rbr_book_pages" class="widefat"
+			   value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>">
 		<?php
+	}
+
+	public function metabox_save_book( $post_id, $post, $update ) {
+
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+
+			return;
+		}
+
+		if (!current_user_can('edit_posts',$post_id)){
+			echo __('Sorry you can not edit');
+			exit;
+		}
+
+		if ( ! isset( $_POST['rbr_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['rbr_meta_box_nonce'], 'rbr_meta_box_nonce_action' ) ) {
+			return null;
+		}
+		update_post_meta( get_the_ID(), 'rbr_book_pages', $_POST['rbr_book_pages'] );
 	}
 }
