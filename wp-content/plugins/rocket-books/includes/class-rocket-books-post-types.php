@@ -98,7 +98,7 @@ class Rocket_Books_Post_Types {
 				'capabilities'         => array(),
 				'map_meta_cap'         => null,
 				'supports'             => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-				'register_meta_box_cb' => null,
+				'register_meta_box_cb' => array( $this, 'register_metabox_book' ),
 				'taxonomies'           => array( 'genre' ),
 				'has_archive'          => true,
 				'rewrite'              => array(
@@ -192,5 +192,21 @@ class Rocket_Books_Post_Types {
 		require_once ROCKET_BOOKS_BASE_DIR . 'public/class-rocket-book-template-loader.php';
 
 		return new Rocket_Books_Template_Loader();
+	}
+
+	public function register_metabox_book( $post ) {
+		$is_gutenberg_active = use_block_editor_for_post_type( get_post_type() );
+		add_meta_box(
+			'book-details',
+			__( 'Book details', 'rocket-books' ),
+			array( $this, 'book_metabox_display_cb' ),
+			'book',
+			'side',
+			'default'
+		);
+	}
+
+	public function book_metabox_display_cb( $post ) {
+		echo "here we display info \n";
 	}
 }
