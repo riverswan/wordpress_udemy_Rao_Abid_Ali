@@ -226,6 +226,7 @@ class Rocket_Books {
 	public function define_post_type_hooks() {
 		$plugin_post_type = new Rocket_Books_Post_Types( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_post_type, 'init' );
+		$this->loader->add_filter( 'the_content', $plugin_post_type, 'content_single_book' );
 	}
 
 }

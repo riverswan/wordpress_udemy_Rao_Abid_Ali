@@ -147,4 +147,13 @@ class Rocket_Books_Post_Types {
 		) );
 	}
 
+	public function content_single_book( $the_content ) {
+		if ( in_the_loop() && is_singular( 'book' ) ) {
+			ob_start();
+			include ROCKET_BOOKS_BASE_DIR . 'templates/book-content.php';
+			return ob_get_clean();
+		}
+
+		return $the_content;
+	}
 }
