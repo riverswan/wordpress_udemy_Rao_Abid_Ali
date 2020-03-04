@@ -30,7 +30,9 @@ class Rocket_Books_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		echo "Deactivated \n";
+		unregister_post_type( 'book' );
+		flush_rewrite_rules();
 	}
 
 }

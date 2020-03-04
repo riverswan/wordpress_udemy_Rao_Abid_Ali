@@ -181,8 +181,6 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-//		$this->loader->add_action( 'init', $plugin_public, 'register_book_post_type' );
-//		$this->loader->add_action( 'init', $plugin_public, 'register_taxonomy_genre' );
 	}
 
 	/**
@@ -225,7 +223,7 @@ class Rocket_Books {
 		return $this->version;
 	}
 
-	private function define_post_type_hooks() {
+	public function define_post_type_hooks() {
 		$plugin_post_type = new Rocket_Books_Post_Types( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_post_type, 'init' );
 	}

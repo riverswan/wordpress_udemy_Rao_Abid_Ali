@@ -30,7 +30,9 @@ class Rocket_Books_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		$plugin_post_types = new Rocket_Books_Post_Types( ROCKET_BOOKS_NAME, ROCKET_BOOKS_VERSION );
+		$plugin_post_types->init();
+		flush_rewrite_rules();
 	}
 
 }
