@@ -236,6 +236,10 @@ class Rocket_Books_Post_Types {
 			return null;
 		}
 		update_post_meta( get_the_ID(), 'rbr_book_pages', absint( $_POST['rbr_book_pages'] ) );
-		update_post_meta( get_the_ID(), 'rbr_is_featured', ( $_POST['rbr-is-featured'] ) );
+		update_post_meta(
+			get_the_ID(),
+			'rbr_is_featured',
+			( 'yes' === $_POST['rbr-is-featured'] ? 'yes' : 'no' )
+		);
 	}
 }
