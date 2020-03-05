@@ -231,6 +231,6 @@ class Rocket_Books_Post_Types {
 		if ( ! isset( $_POST['rbr_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['rbr_meta_box_nonce'], 'rbr_meta_box_nonce_action' ) ) {
 			return null;
 		}
-		update_post_meta( get_the_ID(), 'rbr_book_pages', sanitize_text_field( $_POST['rbr_book_pages'] ) );
+		update_post_meta( get_the_ID(), 'rbr_book_pages', absint( $_POST['rbr_book_pages'] ) );
 	}
 }
