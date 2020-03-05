@@ -213,6 +213,10 @@ class Rocket_Books_Post_Types {
 		<label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
 		<input type="text" name="rbr_book_pages" class="widefat"
 			   value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>">
+		<label for="rbr-is-featured"><?php _e( 'Is featured', 'rocket-books' ); ?></label>
+		<input type="checkbox" name="rbr-is-featured" value="yes"
+			<?php checked( get_post_meta( get_the_ID(), 'rbr_is_featured', true ), 'yes' ); ?>
+		/>
 		<?php
 	}
 
@@ -232,5 +236,6 @@ class Rocket_Books_Post_Types {
 			return null;
 		}
 		update_post_meta( get_the_ID(), 'rbr_book_pages', absint( $_POST['rbr_book_pages'] ) );
+		update_post_meta( get_the_ID(), 'rbr_is_featured', ( $_POST['rbr-is-featured'] ) );
 	}
 }
