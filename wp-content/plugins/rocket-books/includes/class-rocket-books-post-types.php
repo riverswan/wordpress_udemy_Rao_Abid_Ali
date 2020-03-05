@@ -218,19 +218,19 @@ class Rocket_Books_Post_Types {
 
 	public function metabox_save_book( $post_id, $post, $update ) {
 
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 
 			return;
 		}
 
-		if (!current_user_can('edit_posts',$post_id)){
-			echo __('Sorry you can not edit');
+		if ( ! current_user_can( 'edit_posts', $post_id ) ) {
+			echo __( 'Sorry you can not edit' );
 			exit;
 		}
 
 		if ( ! isset( $_POST['rbr_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['rbr_meta_box_nonce'], 'rbr_meta_box_nonce_action' ) ) {
 			return null;
 		}
-		update_post_meta( get_the_ID(), 'rbr_book_pages', sanitize_text_field($_POST['rbr_book_pages']) );
+		update_post_meta( get_the_ID(), 'rbr_book_pages', sanitize_text_field( $_POST['rbr_book_pages'] ) );
 	}
 }
