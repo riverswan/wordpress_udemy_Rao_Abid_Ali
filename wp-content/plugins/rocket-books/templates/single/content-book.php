@@ -10,20 +10,25 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'single-book-container' ); ?>>
 
-    <div class="book-meta-container">
-        <div class="book-entry-img">
+	<div class="book-meta-container">
+		<div class="book-entry-img">
 			<?php the_post_thumbnail(); ?>
-        </div>
-    </div>
+		</div>
+		<ul class="book-meta-fields">
+			<li>Pages: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_book_pages', true))?></li>
+			<li>Format: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_book_format', true))?></li>
+			<li>Is featured: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_is_featured', true))?></li>
+		</ul>
+	</div>
 
-    <div class="book-entry-content">
+	<div class="book-entry-content">
 		<?php
 		the_content();
 
 		?>
-    </div><!-- .entry-content -->
+	</div><!-- .entry-content -->
 
-    <footer class="book-entry-footer">
+	<footer class="book-entry-footer">
 
 		<?php
 		edit_post_link(
@@ -36,5 +41,5 @@
 			'</span>'
 		);
 		?>
-    </footer><!-- .entry-footer -->
+	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
