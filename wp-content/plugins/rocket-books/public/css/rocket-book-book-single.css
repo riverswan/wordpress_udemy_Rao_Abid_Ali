@@ -3,29 +3,29 @@
 /** Debug CSS start here */
 
 
-.single-book-container {
-    background-color: aqua;
-}
+/*.single-book-container {*/
+/*    background-color: aqua;*/
+/*}*/
 
-.book-meta-container {
-    background-color: lightgray;
-}
+/*.book-meta-container {*/
+/*    background-color: lightgray;*/
+/*}*/
 
-.book-entry-content {
-    background-color: whitesmoke;
-}
+/*.book-entry-content {*/
+/*    background-color: whitesmoke;*/
+/*}*/
 
-.book-entry-title {
-    background-color: palegoldenrod;
-}
+/*.book-entry-title {*/
+/*    background-color: palegoldenrod;*/
+/*}*/
 
-.book-meta-fields {
-    background: beige;
-}
+/*.book-meta-fields {*/
+/*    background: beige;*/
+/*}*/
 
-.book-meta-fields li {
-    background-color: lightskyblue;
-}
+/*.book-meta-fields li {*/
+/*    background-color: lightskyblue;*/
+/*}*/
 
 
 /** End of Debug */
@@ -65,6 +65,7 @@ ul.book-meta-fields {
     list-style: none;
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
 }
 
 
