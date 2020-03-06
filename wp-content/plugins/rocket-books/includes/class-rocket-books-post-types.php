@@ -217,6 +217,14 @@ class Rocket_Books_Post_Types {
 		<input type="checkbox" name="rbr-is-featured" value="yes"
 			<?php checked( get_post_meta( get_the_ID(), 'rbr_is_featured', true ), 'yes' ); ?>
 		/>
+        <label for="rbr-book-format">Book format</label>
+        <select name="rbr-book-format" id="rbr-book-format">
+            <option value="">Select option</option>
+            <option value="hardcover">Hardcover</option>
+            <option value="audio">Audio</option>
+            <option value="pdf">PDF</option>
+        </select>
+
 		<?php
 	}
 
