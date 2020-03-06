@@ -210,20 +210,36 @@ class Rocket_Books_Post_Types {
 	public function book_metabox_display_cb( $post ) {
 		wp_nonce_field( 'rbr_meta_box_nonce_action', 'rbr_meta_box_nonce' )
 		?>
-		<label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
-		<input type="text" name="rbr_book_pages" class="widefat"
-			   value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>">
-		<label for="rbr-is-featured"><?php _e( 'Is featured', 'rocket-books' ); ?></label>
-		<input type="checkbox" name="rbr-is-featured" value="yes"
-			<?php checked( get_post_meta( get_the_ID(), 'rbr_is_featured', true ), 'yes' ); ?>
-		/>
-        <label for="rbr-book-format">Book format</label>
-        <select name="rbr-book-format" id="rbr-book-format">
-            <option value="">Select option</option>
-            <option value="hardcover">Hardcover</option>
-            <option value="audio">Audio</option>
-            <option value="pdf">PDF</option>
-        </select>
+		<p>
+			<label for="rbr_book_pages"><?php _e( 'Number of pages', 'rocket-books' ); ?></label>
+			<input type="text" name="rbr_book_pages" class="widefat"
+				   value="<?php echo get_post_meta( get_the_ID(), 'rbr_book_pages', true ); ?>">
+		</p>
+		<p>
+			<label for="rbr-is-featured"><?php _e( 'Is featured', 'rocket-books' ); ?></label>
+			<input type="checkbox" name="rbr-is-featured" value="yes"
+				<?php checked( get_post_meta( get_the_ID(), 'rbr_is_featured', true ), 'yes' ); ?>
+			/>
+		</p>
+		<p>
+			<?php $book_format_from_db = get_post_meta( get_the_ID(), 'rbr_book_format', true ); ?>
+			<label for="rbr-book-format">Book format</label>
+			<select name="rbr-book-format" id="rbr-book-format" class="widefat">
+				<option value="">Select option</option>
+				<option value="hardcover"
+					<?php selected( $book_format_from_db, 'hardcover' ); ?>
+				>Hardcover
+				</option>
+				<option value="audio"
+					<?php selected( $book_format_from_db, 'audio' ); ?>
+				>Audio
+				</option>
+				<option value="pdf"
+					<?php selected( $book_format_from_db, 'pdf' ); ?>
+				>PDF
+				</option>
+			</select>
+		</p>
 
 		<?php
 	}
@@ -248,6 +264,20 @@ class Rocket_Books_Post_Types {
 			get_the_ID(),
 			'rbr_is_featured',
 			( 'yes' === $_POST['rbr-is-featured'] ? 'yes' : 'no' )
+		);
+
+		$book_format = in_array(
+			$_POST['rbr-book-format'],
+			array(
+				'hardcover',
+				'audio',
+				'pdf',
+			)
+		) ? sanitize_key( $_POST['rbr-book-format'] ) : 'no-format';
+		update_post_meta(
+			get_the_ID(),
+			'rbr_book_format',
+			$book_format
 		);
 	}
 }
