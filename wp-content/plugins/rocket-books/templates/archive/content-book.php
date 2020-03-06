@@ -8,33 +8,22 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cpt-card'); ?>>
-	<header class="book-entry-header">
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'cpt-card' ); ?>>
+    <div class="book-meta-container">
+        <div class="book-entry-img">
+			<?php the_post_thumbnail(); ?>
+        </div>
+		<?php include ROCKET_BOOKS_BASE_DIR . 'templates/book-meta.php'; ?>
+        <div class="book-entry-content">
 
+			<?php
+			the_title( '<h1 class="entry-title">', '</h1>' );
+			the_content();
+			?>
+        </div><!-- .entry-content -->
+    </div>
 
-		<?php the_title( sprintf( '<h2 class="book-entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-	</header><!-- .entry-header -->
-<div class="book-entry-img">
-	<?php the_post_thumbnail(); ?>
-</div>
-	<div class="book-entry-content">
-		<?php
-		the_excerpt();
-
-		wp_link_pages(
-			array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentysixteen' ) . '</span>',
-				'after'       => '</div>',
-				'link_before' => '<span>',
-				'link_after'  => '</span>',
-				'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>%',
-				'separator'   => '<span class="screen-reader-text">, </span>',
-			)
-		);
-		?>
-	</div><!-- .entry-content -->
-
-	<footer class="book-entry-footer">
+    <footer class="book-entry-footer">
 		<?php
 		edit_post_link(
 			sprintf(
@@ -46,5 +35,5 @@
 			'</span>'
 		);
 		?>
-	</footer><!-- .entry-footer -->
+    </footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

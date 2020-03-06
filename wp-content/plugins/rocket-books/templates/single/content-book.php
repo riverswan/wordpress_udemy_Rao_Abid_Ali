@@ -14,15 +14,12 @@
 		<div class="book-entry-img">
 			<?php the_post_thumbnail(); ?>
 		</div>
-		<ul class="book-meta-fields">
-			<li>Pages: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_book_pages', true))?></li>
-			<li>Format: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_book_format', true))?></li>
-			<li>Is featured: <?php  echo esc_html(get_post_meta(get_the_ID(),'rbr_is_featured', true))?></li>
-		</ul>
+		<?php include ROCKET_BOOKS_BASE_DIR . 'templates/book-meta.php'; ?>
 	</div>
 
 	<div class="book-entry-content">
 		<?php
+		the_title( '<h1 class="entry-title">', '</h1>' );
 		the_content();
 
 		?>
