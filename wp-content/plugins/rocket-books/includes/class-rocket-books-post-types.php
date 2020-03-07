@@ -104,7 +104,8 @@ class Rocket_Books_Post_Types {
 				'capabilities'         => array(),
 				'map_meta_cap'         => null,
 				'supports'             => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-				'register_meta_box_cb' => array( $this, 'register_metabox_book' ),
+				//              'register_meta_box_cb' => array( $this, 'register_metabox_book' ),
+				'register_meta_box_cb' => null,
 				'taxonomies'           => array( 'genre' ),
 				'has_archive'          => true,
 				'rewrite'              => array(
@@ -278,6 +279,41 @@ class Rocket_Books_Post_Types {
 			get_the_ID(),
 			'rbr_book_format',
 			$book_format
+		);
+	}
+
+	public function register_cmb2_metabox_book() {
+		$metabox = new_cmb2_box(
+			array(
+				'id'           => 'book-details',
+				'title'        => __( 'Book details from CMB2', 'rocket-books' ),
+				'object_types' => array( 'book' ),
+				'context'      => 'side',
+			)
+		);
+
+		$metabox->add_field(
+			array(
+				'id'              => 'rbr_book_pages',
+				'name'            => __( 'Number of pages', 'rocket-books' ),
+				'type'            => 'text',
+				'sanitization_cb' => 'absint',
+			)
+		);
+
+		$metabox->add_field(
+			array(
+				'id'      => 'rbr_book_format',
+				'name'    => __( 'Format', 'rocket-books' ),
+				'type'    => 'select',
+				'options' => array(
+					'no-format' => __( 'Select format', 'rocket-books' ),
+					'hardcover' => __( 'Hardcover', 'rocket-books' ),
+					'audio'     => __( 'Audio', 'rocket-books' ),
+					'pdf'       => __( 'PDF', 'rocket-books' ),
+				),
+				'default' => 'no-format',
+			)
 		);
 	}
 }

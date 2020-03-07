@@ -132,6 +132,8 @@ class Rocket_Books {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-post-types.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/CMB2/init.php';
+
 		$this->loader = new Rocket_Books_Loader();
 
 	}
@@ -229,7 +231,8 @@ class Rocket_Books {
 //		$this->loader->add_filter( 'the_content', $plugin_post_type, 'content_single_book' );
 		$this->loader->add_filter( 'single_template', $plugin_post_type, 'single_template_book' );
 		$this->loader->add_filter( 'archive_template', $plugin_post_type, 'archive_template_book' );
-		$this->loader->add_action( 'save_post_book', $plugin_post_type, 'metabox_save_book', 10, 3 );
+//		$this->loader->add_action( 'save_post_book', $plugin_post_type, 'metabox_save_book', 10, 3 );
+		$this->loader->add_action('cmb2_admin_init', $plugin_post_type, 'register_cmb2_metabox_book');
 
 	}
 
