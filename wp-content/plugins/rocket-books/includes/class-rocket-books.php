@@ -73,13 +73,11 @@ class Rocket_Books {
 			$this->version = '1.0.0';
 		}
 
-
 		if ( defined( 'ROCKET_BOOKS_NAME' ) ) {
 			$this->plugin_name = ROCKET_BOOKS_NAME;
 		} else {
 			$this->plugin_name = 'rocket-books';
 		}
-
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -168,6 +166,7 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
 	}
 
 	/**
@@ -228,11 +227,11 @@ class Rocket_Books {
 	public function define_post_type_hooks() {
 		$plugin_post_type = new Rocket_Books_Post_Types( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_post_type, 'init' );
-//		$this->loader->add_filter( 'the_content', $plugin_post_type, 'content_single_book' );
+		//      $this->loader->add_filter( 'the_content', $plugin_post_type, 'content_single_book' );
 		$this->loader->add_filter( 'single_template', $plugin_post_type, 'single_template_book' );
 		$this->loader->add_filter( 'archive_template', $plugin_post_type, 'archive_template_book' );
-//		$this->loader->add_action( 'save_post_book', $plugin_post_type, 'metabox_save_book', 10, 3 );
-		$this->loader->add_action('cmb2_admin_init', $plugin_post_type, 'register_cmb2_metabox_book');
+		//      $this->loader->add_action( 'save_post_book', $plugin_post_type, 'metabox_save_book', 10, 3 );
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_post_type, 'register_cmb2_metabox_book' );
 
 	}
 

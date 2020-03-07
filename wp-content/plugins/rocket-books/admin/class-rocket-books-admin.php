@@ -100,4 +100,28 @@ class Rocket_Books_Admin {
 
 	}
 
+	public function add_admin_menu() {
+//		add_menu_page(
+//			'Rocket books settings',
+//			'Rocket books',
+//			'manage_options',
+//			'rocket-books',
+//			array($this,'admin_page_display'),
+//			'dashicons-chart-pie',
+//			60
+//		);
+		add_submenu_page(
+			'edit.php?post_type=book',
+			'Rocket books',
+			'Rocket Books',
+			'manage_options',
+			'rocket-books',
+			array($this,'admin_page_display')
+		);
+	}
+
+	public function admin_page_display() {
+		include 'partials/rocket-books-admin-display.php';
+	}
+
 }
