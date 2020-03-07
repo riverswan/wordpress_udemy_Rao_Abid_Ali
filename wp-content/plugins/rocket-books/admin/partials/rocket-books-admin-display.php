@@ -13,4 +13,12 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<p>Hi my name is from admin display</p>
+<div class="wrap">
+    <h1><?php echo get_admin_page_title() ?></h1>
+    <form method="post" action="">
+		<?php
+		do_settings_sections( 'rbr-settings-page' );
+		?>
+		<?php submit_button(); ?>
+    </form>
+</div>

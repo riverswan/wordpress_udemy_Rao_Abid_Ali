@@ -112,7 +112,7 @@ class Rocket_Books_Admin {
 //		);
 		add_submenu_page(
 			'edit.php?post_type=book',
-			'Rocket books',
+			'Rocket Books Settings Page',
 			'Rocket Books',
 			'manage_options',
 			'rocket-books',
