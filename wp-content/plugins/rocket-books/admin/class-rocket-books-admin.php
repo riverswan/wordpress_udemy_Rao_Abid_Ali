@@ -101,27 +101,128 @@ class Rocket_Books_Admin {
 	}
 
 	public function add_admin_menu() {
-//		add_menu_page(
-//			'Rocket books settings',
-//			'Rocket books',
-//			'manage_options',
-//			'rocket-books',
-//			array($this,'admin_page_display'),
-//			'dashicons-chart-pie',
-//			60
-//		);
+		//      add_menu_page(
+		//          'Rocket books settings',
+		//          'Rocket books',
+		//          'manage_options',
+		//          'rocket-books',
+		//          array($this,'admin_page_display'),
+		//          'dashicons-chart-pie',
+		//          60
+		//      );
 		add_submenu_page(
 			'edit.php?post_type=book',
 			'Rocket Books Settings Page',
 			'Rocket Books',
 			'manage_options',
 			'rocket-books',
-			array($this,'admin_page_display')
+			array( $this, 'admin_page_display' )
 		);
 	}
 
 	public function admin_page_display() {
 		include 'partials/rocket-books-admin-display.php';
+	}
+
+	public function admin_init() {
+		$this->add_settings_section();
+		$this->add_settings_fields();
+		$this->save_fields();
+	}
+
+	public function add_settings_section() {
+		add_settings_section(
+			'rbr-general-section',
+			'General Settings',
+			function () {
+				echo '<p>these are general settings</p>';
+			},
+			'rbr-settings-page'
+		);
+
+		add_settings_section(
+			'rbr-advanced-section',
+			'Advanced Settings',
+			function () {
+				echo '<p>these are advanced settings</p>';
+			},
+			'rbr-settings-page'
+		);
+	}
+
+	public function add_settings_fields() {
+		add_settings_field(
+			'rbr_test_field',
+			'Test Field',
+			array( $this, 'markup_text_fields_cb' ),
+			'rbr-settings-page',
+			'rbr-general-section',
+			array(
+				'name'  => 'rbr_test_field',
+				'value' => get_option( 'rbr_test_field' ),
+			)
+		);
+
+		add_settings_field(
+			'rbr_advanced_field1',
+			'Advanced Field 1',
+			array( $this, 'markup_text_fields_cb' ),
+			'rbr-settings-page',
+			'rbr-advanced-section',
+			array(
+				'name'  => 'rbr_advanced_field1',
+				'value' => get_option( 'rbr_advanced_field1' ),
+			)
+		);
+
+		add_settings_field(
+			'rbr_advanced_field2',
+			'Advanced Field 2',
+			array( $this, 'markup_text_fields_cb' ),
+			'rbr-settings-page',
+			'rbr-advanced-section',
+			array(
+				'name'  => 'rbr_advanced_field2',
+				'value' => get_option( 'rbr_advanced_field2' ),
+			)
+		);
+
+	}
+
+	public function save_fields() {
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_test_field',
+			'',
+		);
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_advanced_field1',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+			),
+		);
+		register_setting(
+			'rbr-settings-page-options-group',
+			'rbr_advanced_field2',
+			'',
+		);
+	}
+
+	public function markup_text_fields_cb( $args ) {
+		if ( ! is_array( $args ) ) {
+			return null;
+		}
+
+		$name  = isset( $args['name'] ) ? esc_html( $args['name'] ) : '';
+		$value = isset( $args['value'] ) ? esc_html( $args['value'] ) : '';
+		?>
+
+		<input type="text"
+			   name="<?php echo $name; ?>"
+			   value="<?php echo $value; ?>"
+		/>
+		<?php
 	}
 
 }
