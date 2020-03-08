@@ -104,7 +104,7 @@ class Rocket_Books {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-global.php';
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -131,6 +131,7 @@ class Rocket_Books {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-post-types.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/CMB2/init.php';
+
 
 		$this->loader = new Rocket_Books_Loader();
 
