@@ -275,4 +275,10 @@ class Rocket_Books_Admin {
 		return $links;
 	}
 
+	public function plugin_menu_settings_using_helper() {
+		require_once ROCKET_BOOKS_BASE_DIR . 'vendor/boo-settings-helper/class-boo-settings-helper.php';
+		$rocket_books_settings = array();
+		new Boo_Settings_Helper($rocket_books_settings);
+	}
+
 }
