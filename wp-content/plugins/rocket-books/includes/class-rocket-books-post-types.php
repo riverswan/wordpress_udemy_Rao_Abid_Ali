@@ -54,7 +54,7 @@ class Rocket_Books_Post_Types {
 
 		$this->plugin_name     = $plugin_name;
 		$this->version         = $version;
-		$this->template_loader = Rocket_Books_Global::template_loader();
+		$this->template_loader = rbr_get_template_loader();
 
 	}
 
@@ -181,7 +181,7 @@ class Rocket_Books_Post_Types {
 	}
 
 	public function archive_template_book( $template ) {
-		if ( is_post_type_archive( 'book' ) || is_tax( 'genre' ) ) {
+		if ( is_archive_book() ) {
 
 			return $this->template_loader->get_template_part( 'archive', 'book', false );
 
