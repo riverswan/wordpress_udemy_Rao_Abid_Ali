@@ -269,5 +269,10 @@ class Rocket_Books_Admin {
 		<?php
 	}
 
+	public function add_plugin_action_links( $links ) {
+		$links[] = '<a href=' . admin_url( 'edit.php?post_type=book&page=rocket-books' ) . '>Settings</a>';
+
+		return $links;
+	}
 
 }

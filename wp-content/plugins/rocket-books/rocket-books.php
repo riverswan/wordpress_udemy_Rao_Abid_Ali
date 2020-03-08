@@ -37,6 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'ROCKET_BOOKS_VERSION', '1.0.0' );
 define( 'ROCKET_BOOKS_NAME', 'rocket-books' );
+define( 'ROCKET_BOOKS_BASE_FILE', __FILE__ );
 // Plugin Directly path
 define( 'ROCKET_BOOKS_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
