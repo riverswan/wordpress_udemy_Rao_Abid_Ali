@@ -84,7 +84,7 @@ class Rocket_Books {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_post_type_hooks();
-
+		$this->define_shortcode_hooks();
 	}
 
 	/**
@@ -133,7 +133,6 @@ class Rocket_Books {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/CMB2/init.php';
 
-
 		$this->loader = new Rocket_Books_Loader();
 
 	}
@@ -168,13 +167,13 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-//		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
-//		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
-//		$this->loader->add_action(
-//			'plugin_action_links_' . plugin_basename( ROCKET_BOOKS_BASE_FILE ),
-//			$plugin_admin,
-//			'add_plugin_action_links'
-//		);
+		//      $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+		//      $this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+		//      $this->loader->add_action(
+		//          'plugin_action_links_' . plugin_basename( ROCKET_BOOKS_BASE_FILE ),
+		//          $plugin_admin,
+		//          'add_plugin_action_links'
+		//      );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'plugin_menu_settings_using_helper' );
 
@@ -244,6 +243,15 @@ class Rocket_Books {
 		//      $this->loader->add_action( 'save_post_book', $plugin_post_type, 'metabox_save_book', 10, 3 );
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_post_type, 'register_cmb2_metabox_book' );
 
+	}
+
+	public function define_shortcode_hooks() {
+		add_shortcode(
+			'book_list',
+			function ( $args, $content ) {
+				return $args['value1'] . $content;
+			}
+		);
 	}
 
 }
