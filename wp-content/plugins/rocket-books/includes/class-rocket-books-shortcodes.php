@@ -16,6 +16,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
+			$this->setup_hooks();
 
 		}
 
@@ -33,6 +34,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 			$loop_args = array(
 				'post_type'      => 'book',
 				'posts_per_page' => $args['limit'],
+				'bgcolor'        => '#f6f6f6',
 			);
 			$loop      = new WP_Query( $loop_args );
 
@@ -40,7 +42,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 			ob_start();
 			?>
-			<div class="cpt-cards <?php echo $grid_column; ?>">
+			<div class="cpt-cards <?php echo sanitize_html_class( $grid_column ); ?>">
 				<?php
 				// Start the Loop.
 				while ( $loop->have_posts() ) :
@@ -52,6 +54,14 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 			</div>
 			<?php
 			return ob_get_clean();
+		}
+
+		public function setup_hooks() {
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_style' ) );
+		}
+
+		public function register_style() {
+		    wp_register_style($this->plugin_name . '-shortcodes','','','','');
 		}
 	}
 }
