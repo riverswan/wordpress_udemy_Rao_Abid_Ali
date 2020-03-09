@@ -1,6 +1,8 @@
 <?php declare( strict_types=1 );
 
 
+use function Sodium\add;
+
 if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 	class Rocket_Books_Shortcodes {
@@ -10,6 +12,10 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 
 		private $version;
+		/**
+		 * @var string
+		 */
+		private $shortcode_css;
 
 
 		public function __construct( $plugin_name, $version ) {
@@ -39,10 +45,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 			$loop      = new WP_Query( $loop_args );
 
 			$grid_column = rbr_get_column_class( $args['column'] );
-
-			$css = ".cpt-cards.cpt-shortcodes .cpt-card {background-color: {$args['bgcolor']};}";
-			wp_add_inline_style( $this->plugin_name . '-shortcodes', $css );
-			wp_enqueue_style( $this->plugin_name . '-shortcodes' );
+			$this->add_css_books_list( $args );
 
 			ob_start();
 			?>
@@ -62,6 +65,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 		public function setup_hooks() {
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_style' ) );
+			add_action( 'get_footer', array( $this, 'maybe_enqueue_scripts' ) );
 		}
 
 		public function register_style() {
@@ -69,6 +73,18 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 				$this->plugin_name . '-shortcodes',
 				ROCKET_BOOKS_URL_PATH . 'public/css/rocket-books-shortcodes.css',
 			);
+		}
+
+		public function add_css_books_list( $args ) {
+			$css                  = ".cpt-cards.cpt-shortcodes .cpt-card {background-color: {$args['bgcolor']};}";
+			$this->shortcode_css .= $css;
+		}
+
+		public function maybe_enqueue_scripts() {
+			if ( ! empty( $this->shortcode_css ) ) {
+				wp_add_inline_style( $this->plugin_name . '-shortcodes', $this->shortcode_css );
+				wp_enqueue_style( $this->plugin_name . '-shortcodes' );
+			}
 		}
 	}
 }
