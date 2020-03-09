@@ -21,7 +21,7 @@
 				the_title( '<h1 class="entry-title">', '</h1>' );
 				?>
                 </a>
-				<?php the_content(); ?>
+<!--				--><?php //the_content(); ?>
 
 			</div><!-- .entry-content -->
 
