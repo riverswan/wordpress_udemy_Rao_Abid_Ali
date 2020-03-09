@@ -23,7 +23,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 			$args = shortcode_atts(
 				array(
-					'limit' => 3,
+					'limit' => get_option( 'posts_per_page' ),
 				),
 				$args,
 				'book_list'
