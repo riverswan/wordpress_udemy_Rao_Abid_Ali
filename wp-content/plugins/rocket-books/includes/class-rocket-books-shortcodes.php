@@ -12,9 +12,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 
 
 		private $version;
-		/**
-		 * @var string
-		 */
+
 		private $shortcode_css;
 
 
