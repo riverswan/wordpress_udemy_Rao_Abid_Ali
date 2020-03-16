@@ -85,6 +85,7 @@ class Rocket_Books {
 		$this->define_public_hooks();
 		$this->define_post_type_hooks();
 		$this->define_shortcode_hooks();
+		$this->define_widget_hooks();
 	}
 
 	/**
@@ -227,7 +228,7 @@ class Rocket_Books {
 	 * @since     1.0.0
 	 */
 	public function get_version() {
-		return $this->version;
+		return $this->version;  
 	}
 
 	public function define_post_type_hooks() {
@@ -251,6 +252,10 @@ class Rocket_Books {
 			array( $plugin_shortcodes, 'book_list' )
 		);
 
+	}
+
+	public function define_widget_hooks(  ) {
+		
 	}
 
 }
