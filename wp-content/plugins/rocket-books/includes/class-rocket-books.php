@@ -133,6 +133,7 @@ class Rocket_Books {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-post-types.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-shortcodes.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rocket-books-widgets.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/CMB2/init.php';
 
@@ -170,7 +171,6 @@ class Rocket_Books {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'plugin_menu_settings_using_helper' );
 
@@ -228,7 +228,7 @@ class Rocket_Books {
 	 * @since     1.0.0
 	 */
 	public function get_version() {
-		return $this->version;  
+		return $this->version;
 	}
 
 	public function define_post_type_hooks() {
@@ -254,8 +254,13 @@ class Rocket_Books {
 
 	}
 
-	public function define_widget_hooks(  ) {
-		
+	public function define_widget_hooks() {
+		$plugin_widgets = new Rocket_Books_Widgets(
+			$this->get_plugin_name(),
+			$this->get_version()
+		);
+
+		$this->loader->add_action( 'widgets_init', $plugin_widgets, 'register_widgets' );
 	}
 
 }
