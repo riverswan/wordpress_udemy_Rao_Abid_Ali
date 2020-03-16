@@ -27,6 +27,9 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 			echo $args['before_title'];
 			echo 'Books List';
 			echo $args['after_title'];
+			echo '<pre>';
+			var_export( $instance );
+			echo '</pre>';
 			echo $args['after_widget'];
 		}
 
@@ -36,12 +39,16 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 * @param array $instance The widget options
 		 */
 		public function form( $instance ) {
+
+			$title = isset( $instance['title'] ) ? $instance['title'] : '';
 			?>
 			<p>
 				<input
 						type="text"
 						class="widefat"
 						id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+						name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+						value="<?php echo esc_html( $title ); ?>"
 				>
 			</p>
 			<?php
@@ -56,7 +63,8 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 * @return array
 		 */
 		public function update( $new_instance, $old_instance ) {
-			// processes widget options to be saved
+			$sanitized_instance = $new_instance;
+			return $sanitized_instance;
 		}
 	}
 
