@@ -25,11 +25,8 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		public function widget( $args, $instance ) {
 			echo $args['before_widget'];
 			echo $args['before_title'];
-			echo 'Books List';
+			echo isset( $instance['title'] ) ? $instance['title'] : '';
 			echo $args['after_title'];
-			echo '<pre>';
-			var_export( $instance );
-			echo '</pre>';
 			echo $args['after_widget'];
 		}
 
@@ -43,6 +40,9 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 			$title = isset( $instance['title'] ) ? $instance['title'] : '';
 			?>
 			<p>
+                <label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ) ?>">
+                    <?php _e('Title','rocket-books') ?>
+                </label>
 				<input
 						type="text"
 						class="widefat"
