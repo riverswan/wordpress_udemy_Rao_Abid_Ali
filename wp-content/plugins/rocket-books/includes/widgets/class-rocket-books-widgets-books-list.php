@@ -40,9 +40,9 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 			$title = isset( $instance['title'] ) ? $instance['title'] : '';
 			?>
 			<p>
-                <label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ) ?>">
-                    <?php _e('Title','rocket-books') ?>
-                </label>
+				<label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>">
+					<?php _e( 'Title', 'rocket-books' ); ?>
+				</label>
 				<input
 						type="text"
 						class="widefat"
@@ -64,6 +64,7 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 */
 		public function update( $new_instance, $old_instance ) {
 			$sanitized_instance = $new_instance;
+
 			return $sanitized_instance;
 		}
 	}
