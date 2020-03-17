@@ -39,10 +39,8 @@ if ( ! class_exists( 'Rocket_Books_Widgets ' ) ) {
 		 *
 		 */
 		public function __construct( $plugin_name, $version ) {
-
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
-
 		}
 
 		public function register_widgets() {
