@@ -64,7 +64,6 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 */
 		public function update( $new_instance, $old_instance ) {
 			$sanitized_instance = $new_instance;
-
 			return $sanitized_instance;
 		}
 	}
