@@ -29,12 +29,23 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 			echo $args['after_title'];
 			echo $args['after_widget'];
 
-			$limit = isset( $instance['limit'] ) ? esc_html( $instance['limit'] ) : 5;
+			$limit  = isset( $instance['limit'] ) ? esc_html( $instance['limit'] ) : 5;
+			$format = isset( $instance['format'] ) ? esc_html( $instance['format'] ) : '';
 
 			$loop_args = array(
-				'post_type'     => 'book',
+				'post_type'      => 'book',
 				'posts_per_page' => $limit,
 			);
+
+			if ( ! empty( $format ) ) {
+				$loop_args['meta_query'] = array(
+					array(
+						'key'     => 'rbr_book_format',
+						'value'   => $format,
+						'compare' => '=',
+					),
+				);
+			}
 
 			$loop = new WP_Query( $loop_args );
 
@@ -53,8 +64,9 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 */
 		public function form( $instance ) {
 
-			$title = isset( $instance['title'] ) ? $instance['title'] : '';
-			$limit = isset( $instance['limit'] ) ? $instance['limit'] : 3;
+			$title  = isset( $instance['title'] ) ? $instance['title'] : '';
+			$limit  = isset( $instance['limit'] ) ? $instance['limit'] : 3;
+			$format = isset( $instance['format'] ) ? $instance['format'] : '';
 			?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>">
@@ -81,6 +93,36 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 				>
 			</p>
 			<?php
+
+			$format_select_options = array(
+				''          => __( 'All', 'rocket-books' ),
+				'hardcover' => __( 'Hardcover', 'rocket-books' ),
+				'audio'     => __( 'Audio', 'rocket-books' ),
+				'pdf'       => __( 'PDF', 'rocket-books' ),
+			);
+
+			printf(
+				'<p><label for="%s">%s</label>',
+				$this->get_field_name( 'format' ),
+				__( 'Format', 'rocket-books' )
+			);
+
+			printf(
+				'<select id="%s" name="%s" class="widefat">',
+				$this->get_field_id( 'format' ),
+				$this->get_field_name( 'format' )
+			);
+
+			foreach ( $format_select_options as $value => $label ) {
+				printf(
+					'<option value="%s" %s>%s</option>',
+					$value,
+					selected( $value, $format ),
+					$label
+				);
+			}
+
+			echo '</select></p>';
 		}
 
 		/**
@@ -92,8 +134,9 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		 * @return array
 		 */
 		public function update( $new_instance, $old_instance ) {
-			$sanitized_instance['title'] = sanitize_text_field( $new_instance['title'] );
-			$sanitized_instance['limit'] = absint( $new_instance['limit'] );
+			$sanitized_instance['title']  = sanitize_text_field( $new_instance['title'] );
+			$sanitized_instance['limit']  = absint( $new_instance['limit'] );
+			$sanitized_instance['format'] = sanitize_key( $new_instance['format'] );
 
 			return $sanitized_instance;
 		}
