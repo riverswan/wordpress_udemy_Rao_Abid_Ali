@@ -8,36 +8,16 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'cpt-card' ); ?>>
-	<div class="book-meta-container">
-		<div class="book-entry-img">
-			<?php the_post_thumbnail(); ?>
-		</div>
-		<?php include ROCKET_BOOKS_BASE_DIR . 'templates/book-meta.php'; ?>
-
-		<div class="book-entry-content">
-			<a href="<?php echo get_page_link( get_post() ); ?>">
-				<?php
-				the_title( '<h1 class="entry-title">', '</h1>' );
-				?>
-			</a>
-			<!--				--><?php //the_content(); ?>
-
-		</div><!-- .entry-content -->
-
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'cpt-card-widget' ); ?>>
+	<div class="book-entry-img">
+		<?php the_post_thumbnail( 'thumbnail' ); ?>
 	</div>
-
-	<footer class="book-entry-footer">
+	<div class="book-entry-content">
 		<?php
-		edit_post_link(
-			sprintf(
-			/* translators: %s: Name of current post */
-				__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-				get_the_title()
-			),
-			'<span class="edit-link">',
-			'</span>'
-		);
+		the_title( sprintf( '<h2 class="book-entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+
+		include ROCKET_BOOKS_BASE_DIR . 'templates/book-meta.php';
 		?>
-	</footer><!-- .entry-footer -->
-</article><!-- #post-<?php the_ID(); ?> -->
+	</div><!-- .entry-content -->
+
+</article><!-- #post-## -->

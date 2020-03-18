@@ -29,9 +29,11 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 			echo $args['after_title'];
 			echo $args['after_widget'];
 
+			$limit = isset( $instance['limit'] ) ? esc_html( $instance['limit'] ) : 5;
+
 			$loop_args = array(
 				'post_type'     => 'book',
-				'post_per_page' => 5,
+				'posts_per_page' => $limit,
 			);
 
 			$loop = new WP_Query( $loop_args );
