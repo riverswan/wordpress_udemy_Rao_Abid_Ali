@@ -25,7 +25,7 @@ if ( ! class_exists( 'Rocket_Books_Widgets_Books_List ' ) ) {
 		public function widget( $args, $instance ) {
 			echo $args['before_widget'];
 			echo $args['before_title'];
-			echo isset( $instance['title'] ) ? $instance['title'] : '';
+			echo isset( $instance['title'] ) ? esc_html( $instance['title'] ) : '';
 			echo $args['after_title'];
 			echo $args['after_widget'];
 		}
