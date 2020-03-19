@@ -30,6 +30,7 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 					'column'  => 3,
 					'bgcolor' => '#f6f6f6',
 					'genre'   => '',
+					'book_id' => '',
 				),
 				$args,
 				'book_list'
@@ -39,6 +40,10 @@ if ( ! class_exists( 'Rocket_Books_Shortcodes' ) ) {
 				'post_type'      => 'book',
 				'posts_per_page' => $args['limit'],
 			);
+
+			if ( ! empty( $args['book_id'] ) ) {
+				$loop_args['p'] = absint( $args['book_id'] );
+			}
 
 			if ( ! empty( $args['genre'] ) ) {
 				$loop_args['tax_query'] = array(

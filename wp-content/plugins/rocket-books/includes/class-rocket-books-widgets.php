@@ -41,11 +41,18 @@ if ( ! class_exists( 'Rocket_Books_Widgets ' ) ) {
 		public function __construct( $plugin_name, $version ) {
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
+			$this->load_dependency();
 		}
 
 		public function register_widgets() {
 			require_once ROCKET_BOOKS_BASE_DIR . 'includes/widgets/class-rocket-books-widgets-books-list.php';
 			register_widget( 'Rocket_Books_Widgets_Books_List' );
+			require_once ROCKET_BOOKS_BASE_DIR . 'includes/widgets/class-rocket-books-widgets-featured-book.php';
+			register_widget( 'Rocket_Books_Widgets_Featured_Book' );
+		}
+
+		public function load_dependency() {
+			require_once ROCKET_BOOKS_BASE_DIR . 'vendor/boo-widget-helper/class-boo-widget-helper.php';
 		}
 	}
 }
