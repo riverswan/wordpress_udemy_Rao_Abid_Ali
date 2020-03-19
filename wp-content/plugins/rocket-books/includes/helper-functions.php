@@ -16,7 +16,9 @@ function is_archive_book() {
 
 function rbr_get_column_class( $value ) {
 	switch ( $value ) {
-
+		case 1:
+			return 'column-one';
+			break;
 		case 2:
 			return 'column-two';
 			break;
